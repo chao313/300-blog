@@ -1,4 +1,4 @@
-# demo-master
+# 300-blog
 生成代码的框架
 1.当做模板
 2.和demoWeb配合
