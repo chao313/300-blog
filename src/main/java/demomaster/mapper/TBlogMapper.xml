@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="demomaster.dao.TBlogDAO">
+
+    <resultMap id="resultMap" type="demomaster.vo.TBlogVo">
+        <result column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="img" property="img"/>
+        <result column="time" property="time"/>
+        <result column="type" property="type"/>
+        <result column="look_sum" property="lookSum"/>
+        <result column="content" property="content"/>
+    </resultMap>
+
+    <insert id="insert"
+            parameterType="demomaster.vo.TBlogVo">
+        INSERT INTO `t_blog`(
+        `id` ,
+        `title` ,
+        `img` ,
+        `time` ,
+        `type` ,
+        `look_sum` ,
+        `content` 
+        )VALUE(
+          #{id}  ,
+          #{title}  ,
+          #{img}  ,
+          #{time}  ,
+          #{type}  ,
+          #{lookSum}  ,
+          #{content}  
+        )
+    </insert>
+
+    <insert id="inserts"
+            parameterType="java.util.List">
+        INSERT INTO `t_blog`(
+        `id`,
+        `title`,
+        `img`,
+        `time`,
+        `type`,
+        `look_sum`,
+        `content`
+        )VALUES
+        <foreach collection="vos" item="item" separator=",">
+            (
+            #{item.id},
+            #{item.title},
+            #{item.img},
+            #{item.time},
+            #{item.type},
+            #{item.lookSum},
+            #{item.content}
+            )
+        </foreach>
+    </insert>
+
+    <select id="queryBase" resultMap="resultMap"
+            resultType="demomaster.vo.TBlogVo"
+            parameterType="demomaster.vo.TBlogVo">
+        SELECT
+        `id`,
+        `title`,
+        `img`,
+        `time`,
+        `type`,
+        `look_sum`,
+        `content`
+        FROM `t_blog`
+        <where>
+            1 = 1
+            <if test="id != null">
+                AND `id` = #{id}
+            </if>
+            <if test="title != null">
+                AND `title` = #{title}
+            </if>
+            <if test="img != null">
+                AND `img` = #{img}
+            </if>
+            <if test="time != null">
+                AND `time` = #{time}
+            </if>
+            <if test="type != null">
+                AND `type` = #{type}
+            </if>
+            <if test="lookSum != null">
+                AND `look_sum` = #{lookSum}
+            </if>
+            <if test="content != null">
+                AND `content` = #{content}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateBase"
+            parameterType="demomaster.vo.TBlogVo">
+        UPDATE `t_blog`
+        <set>
+            <if test="source.id != null">
+                `id` = #{source.id},
+            </if>
+            <if test="source.title != null">
+                `title` = #{source.title},
+            </if>
+            <if test="source.img != null">
+                `img` = #{source.img},
+            </if>
+            <if test="source.time != null">
+                `time` = #{source.time},
+            </if>
+            <if test="source.type != null">
+                `type` = #{source.type},
+            </if>
+            <if test="source.lookSum != null">
+                `look_sum` = #{source.lookSum},
+            </if>
+            <if test="source.content != null">
+                `content` = #{source.content}
+            </if>
+        </set>
+        <where>
+            1 =1
+            <if test="target.id != null">
+                AND `id` = #{target.id}
+            </if>
+            <if test="target.title != null">
+                AND `title` = #{target.title}
+            </if>
+            <if test="target.img != null">
+                AND `img` = #{target.img}
+            </if>
+            <if test="target.time != null">
+                AND `time` = #{target.time}
+            </if>
+            <if test="target.type != null">
+                AND `type` = #{target.type}
+            </if>
+            <if test="target.lookSum != null">
+                AND `look_sum` = #{target.lookSum}
+            </if>
+            <if test="target.content != null">
+                AND `content` = #{target.content}
+            </if>
+        </where>
+    </update>
+
+    <update id="updateBaseIncludeNull"
+            parameterType="demomaster.vo.TBlogVo">
+        UPDATE `t_blog`
+        <set>
+            `id` = #{source.id},
+            `title` = #{source.title},
+            `img` = #{source.img},
+            `time` = #{source.time},
+            `type` = #{source.type},
+            `look_sum` = #{source.lookSum},
+            `content` = #{source.content}
+        </set>
+        <where>
+            1 =1
+            <if test="target.id != null">
+                AND `id` = #{target.id}
+            </if>
+            <if test="target.title != null">
+                AND `title` = #{target.title}
+            </if>
+            <if test="target.img != null">
+                AND `img` = #{target.img}
+            </if>
+            <if test="target.time != null">
+                AND `time` = #{target.time}
+            </if>
+            <if test="target.type != null">
+                AND `type` = #{target.type}
+            </if>
+            <if test="target.lookSum != null">
+                AND `look_sum` = #{target.lookSum}
+            </if>
+            <if test="target.content != null">
+                AND `content` = #{target.content}
+            </if>
+        </where>
+    </update>
+
+    <delete id="deleteBase"
+            parameterType="demomaster.vo.TBlogVo">
+        DELETE FROM `t_blog`
+        <where>
+            1 =1
+            <if test="id != null">
+                AND `id` = #{id}
+            </if>
+            <if test="title != null">
+                AND `title` = #{title}
+            </if>
+            <if test="img != null">
+                AND `img` = #{img}
+            </if>
+            <if test="time != null">
+                AND `time` = #{time}
+            </if>
+            <if test="type != null">
+                AND `type` = #{type}
+            </if>
+            <if test="lookSum != null">
+                AND `look_sum` = #{lookSum}
+            </if>
+            <if test="content != null">
+                AND `content` = #{content}
+            </if>
+        </where>
+    </delete>
+
+
+    <select id="queryByPrimaryKey" resultMap="resultMap"
+            resultType="demomaster.vo.TBlogVo">
+        SELECT
+        `id`,
+        `title`,
+        `img`,
+        `time`,
+        `type`,
+        `look_sum`,
+        `content`
+        FROM `t_blog`
+        <where>
+            1 =1
+            AND `id` = #{id}
+        </where>
+    </select>
+
+    <delete id="deleteByPrimaryKey">
+        DELETE FROM `t_blog`
+        <where>
+            1 = 1
+               AND `id` = #{id}
+        </where>
+    </delete>
+
+    <update id="updateByPrimaryKey"
+            parameterType="demomaster.vo.TBlogVo">
+        UPDATE `t_blog`
+        <set>
+               <if test="source.title != null">
+                   `title` = #{source.title},
+               </if>
+               <if test="source.img != null">
+                   `img` = #{source.img},
+               </if>
+               <if test="source.time != null">
+                   `time` = #{source.time},
+               </if>
+               <if test="source.type != null">
+                   `type` = #{source.type},
+               </if>
+               <if test="source.lookSum != null">
+                   `look_sum` = #{source.lookSum},
+               </if>
+               <if test="source.content != null">
+                   `content` = #{source.content}
+               </if>
+        </set>
+        <where>
+            1 =1
+               AND `id` = #{target.id}
+        </where>
+    </update>
+
+</mapper>

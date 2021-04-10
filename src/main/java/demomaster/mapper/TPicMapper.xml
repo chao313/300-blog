@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="demomaster.dao.TPicDAO">
+
+    <resultMap id="resultMap" type="demomaster.vo.TPicVo">
+        <result column="id" property="id"/>
+        <result column="pic_path" property="picPath"/>
+        <result column="alt" property="alt"/>
+    </resultMap>
+
+    <insert id="insert"
+            parameterType="demomaster.vo.TPicVo">
+        INSERT INTO `t_pic`(
+        `id` ,
+        `pic_path` ,
+        `alt` 
+        )VALUE(
+          #{id}  ,
+          #{picPath}  ,
+          #{alt}  
+        )
+    </insert>
+
+    <insert id="inserts"
+            parameterType="java.util.List">
+        INSERT INTO `t_pic`(
+        `id`,
+        `pic_path`,
+        `alt`
+        )VALUES
+        <foreach collection="vos" item="item" separator=",">
+            (
+            #{item.id},
+            #{item.picPath},
+            #{item.alt}
+            )
+        </foreach>
+    </insert>
+
+    <select id="queryBase" resultMap="resultMap"
+            resultType="demomaster.vo.TPicVo"
+            parameterType="demomaster.vo.TPicVo">
+        SELECT
+        `id`,
+        `pic_path`,
+        `alt`
+        FROM `t_pic`
+        <where>
+            1 = 1
+            <if test="id != null">
+                AND `id` = #{id}
+            </if>
+            <if test="picPath != null">
+                AND `pic_path` = #{picPath}
+            </if>
+            <if test="alt != null">
+                AND `alt` = #{alt}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateBase"
+            parameterType="demomaster.vo.TPicVo">
+        UPDATE `t_pic`
+        <set>
+            <if test="source.id != null">
+                `id` = #{source.id},
+            </if>
+            <if test="source.picPath != null">
+                `pic_path` = #{source.picPath},
+            </if>
+            <if test="source.alt != null">
+                `alt` = #{source.alt}
+            </if>
+        </set>
+        <where>
+            1 =1
+            <if test="target.id != null">
+                AND `id` = #{target.id}
+            </if>
+            <if test="target.picPath != null">
+                AND `pic_path` = #{target.picPath}
+            </if>
+            <if test="target.alt != null">
+                AND `alt` = #{target.alt}
+            </if>
+        </where>
+    </update>
+
+    <update id="updateBaseIncludeNull"
+            parameterType="demomaster.vo.TPicVo">
+        UPDATE `t_pic`
+        <set>
+            `id` = #{source.id},
+            `pic_path` = #{source.picPath},
+            `alt` = #{source.alt}
+        </set>
+        <where>
+            1 =1
+            <if test="target.id != null">
+                AND `id` = #{target.id}
+            </if>
+            <if test="target.picPath != null">
+                AND `pic_path` = #{target.picPath}
+            </if>
+            <if test="target.alt != null">
+                AND `alt` = #{target.alt}
+            </if>
+        </where>
+    </update>
+
+    <delete id="deleteBase"
+            parameterType="demomaster.vo.TPicVo">
+        DELETE FROM `t_pic`
+        <where>
+            1 =1
+            <if test="id != null">
+                AND `id` = #{id}
+            </if>
+            <if test="picPath != null">
+                AND `pic_path` = #{picPath}
+            </if>
+            <if test="alt != null">
+                AND `alt` = #{alt}
+            </if>
+        </where>
+    </delete>
+
+
+    <select id="queryByPrimaryKey" resultMap="resultMap"
+            resultType="demomaster.vo.TPicVo">
+        SELECT
+        `id`,
+        `pic_path`,
+        `alt`
+        FROM `t_pic`
+        <where>
+            1 =1
+            AND `id` = #{id}
+        </where>
+    </select>
+
+    <delete id="deleteByPrimaryKey">
+        DELETE FROM `t_pic`
+        <where>
+            1 = 1
+               AND `id` = #{id}
+        </where>
+    </delete>
+
+    <update id="updateByPrimaryKey"
+            parameterType="demomaster.vo.TPicVo">
+        UPDATE `t_pic`
+        <set>
+               <if test="source.picPath != null">
+                   `pic_path` = #{source.picPath},
+               </if>
+               <if test="source.alt != null">
+                   `alt` = #{source.alt}
+               </if>
+        </set>
+        <where>
+            1 =1
+               AND `id` = #{target.id}
+        </where>
+    </update>
+
+</mapper>

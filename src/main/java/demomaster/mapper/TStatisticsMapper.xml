@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="demomaster.dao.TStatisticsDAO">
+
+    <resultMap id="resultMap" type="demomaster.vo.TStatisticsVo">
+        <result column="id" property="id"/>
+        <result column="total" property="total"/>
+        <result column="run_time" property="runTime"/>
+    </resultMap>
+
+    <insert id="insert"
+            parameterType="demomaster.vo.TStatisticsVo">
+        INSERT INTO `t_statistics`(
+        `id` ,
+        `total` ,
+        `run_time` 
+        )VALUE(
+          #{id}  ,
+          #{total}  ,
+          #{runTime}  
+        )
+    </insert>
+
+    <insert id="inserts"
+            parameterType="java.util.List">
+        INSERT INTO `t_statistics`(
+        `id`,
+        `total`,
+        `run_time`
+        )VALUES
+        <foreach collection="vos" item="item" separator=",">
+            (
+            #{item.id},
+            #{item.total},
+            #{item.runTime}
+            )
+        </foreach>
+    </insert>
+
+    <select id="queryBase" resultMap="resultMap"
+            resultType="demomaster.vo.TStatisticsVo"
+            parameterType="demomaster.vo.TStatisticsVo">
+        SELECT
+        `id`,
+        `total`,
+        `run_time`
+        FROM `t_statistics`
+        <where>
+            1 = 1
+            <if test="id != null">
+                AND `id` = #{id}
+            </if>
+            <if test="total != null">
+                AND `total` = #{total}
+            </if>
+            <if test="runTime != null">
+                AND `run_time` = #{runTime}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateBase"
+            parameterType="demomaster.vo.TStatisticsVo">
+        UPDATE `t_statistics`
+        <set>
+            <if test="source.id != null">
+                `id` = #{source.id},
+            </if>
+            <if test="source.total != null">
+                `total` = #{source.total},
+            </if>
+            <if test="source.runTime != null">
+                `run_time` = #{source.runTime}
+            </if>
+        </set>
+        <where>
+            1 =1
+            <if test="target.id != null">
+                AND `id` = #{target.id}
+            </if>
+            <if test="target.total != null">
+                AND `total` = #{target.total}
+            </if>
+            <if test="target.runTime != null">
+                AND `run_time` = #{target.runTime}
+            </if>
+        </where>
+    </update>
+
+    <update id="updateBaseIncludeNull"
+            parameterType="demomaster.vo.TStatisticsVo">
+        UPDATE `t_statistics`
+        <set>
+            `id` = #{source.id},
+            `total` = #{source.total},
+            `run_time` = #{source.runTime}
+        </set>
+        <where>
+            1 =1
+            <if test="target.id != null">
+                AND `id` = #{target.id}
+            </if>
+            <if test="target.total != null">
+                AND `total` = #{target.total}
+            </if>
+            <if test="target.runTime != null">
+                AND `run_time` = #{target.runTime}
+            </if>
+        </where>
+    </update>
+
+    <delete id="deleteBase"
+            parameterType="demomaster.vo.TStatisticsVo">
+        DELETE FROM `t_statistics`
+        <where>
+            1 =1
+            <if test="id != null">
+                AND `id` = #{id}
+            </if>
+            <if test="total != null">
+                AND `total` = #{total}
+            </if>
+            <if test="runTime != null">
+                AND `run_time` = #{runTime}
+            </if>
+        </where>
+    </delete>
+
+
+    <select id="queryByPrimaryKey" resultMap="resultMap"
+            resultType="demomaster.vo.TStatisticsVo">
+        SELECT
+        `id`,
+        `total`,
+        `run_time`
+        FROM `t_statistics`
+        <where>
+            1 =1
+            AND `id` = #{id}
+        </where>
+    </select>
+
+    <delete id="deleteByPrimaryKey">
+        DELETE FROM `t_statistics`
+        <where>
+            1 = 1
+               AND `id` = #{id}
+        </where>
+    </delete>
+
+    <update id="updateByPrimaryKey"
+            parameterType="demomaster.vo.TStatisticsVo">
+        UPDATE `t_statistics`
+        <set>
+               <if test="source.total != null">
+                   `total` = #{source.total},
+               </if>
+               <if test="source.runTime != null">
+                   `run_time` = #{source.runTime}
+               </if>
+        </set>
+        <where>
+            1 =1
+               AND `id` = #{target.id}
+        </where>
+    </update>
+
+</mapper>

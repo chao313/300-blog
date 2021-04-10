@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="demomaster.dao.TTitleDAO">
+
+    <resultMap id="resultMap" type="demomaster.vo.TTitleVo">
+        <result column="id" property="id"/>
+        <result column="title" property="title"/>
+    </resultMap>
+
+    <insert id="insert"
+            parameterType="demomaster.vo.TTitleVo">
+        INSERT INTO `t_title`(
+        `id` ,
+        `title` 
+        )VALUE(
+          #{id}  ,
+          #{title}  
+        )
+    </insert>
+
+    <insert id="inserts"
+            parameterType="java.util.List">
+        INSERT INTO `t_title`(
+        `id`,
+        `title`
+        )VALUES
+        <foreach collection="vos" item="item" separator=",">
+            (
+            #{item.id},
+            #{item.title}
+            )
+        </foreach>
+    </insert>
+
+    <select id="queryBase" resultMap="resultMap"
+            resultType="demomaster.vo.TTitleVo"
+            parameterType="demomaster.vo.TTitleVo">
+        SELECT
+        `id`,
+        `title`
+        FROM `t_title`
+        <where>
+            1 = 1
+            <if test="id != null">
+                AND `id` = #{id}
+            </if>
+            <if test="title != null">
+                AND `title` = #{title}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateBase"
+            parameterType="demomaster.vo.TTitleVo">
+        UPDATE `t_title`
+        <set>
+            <if test="source.id != null">
+                `id` = #{source.id},
+            </if>
+            <if test="source.title != null">
+                `title` = #{source.title}
+            </if>
+        </set>
+        <where>
+            1 =1
+            <if test="target.id != null">
+                AND `id` = #{target.id}
+            </if>
+            <if test="target.title != null">
+                AND `title` = #{target.title}
+            </if>
+        </where>
+    </update>
+
+    <update id="updateBaseIncludeNull"
+            parameterType="demomaster.vo.TTitleVo">
+        UPDATE `t_title`
+        <set>
+            `id` = #{source.id},
+            `title` = #{source.title}
+        </set>
+        <where>
+            1 =1
+            <if test="target.id != null">
+                AND `id` = #{target.id}
+            </if>
+            <if test="target.title != null">
+                AND `title` = #{target.title}
+            </if>
+        </where>
+    </update>
+
+    <delete id="deleteBase"
+            parameterType="demomaster.vo.TTitleVo">
+        DELETE FROM `t_title`
+        <where>
+            1 =1
+            <if test="id != null">
+                AND `id` = #{id}
+            </if>
+            <if test="title != null">
+                AND `title` = #{title}
+            </if>
+        </where>
+    </delete>
+
+
+    <select id="queryByPrimaryKey" resultMap="resultMap"
+            resultType="demomaster.vo.TTitleVo">
+        SELECT
+        `id`,
+        `title`
+        FROM `t_title`
+        <where>
+            1 =1
+            AND `id` = #{id}
+        </where>
+    </select>
+
+    <delete id="deleteByPrimaryKey">
+        DELETE FROM `t_title`
+        <where>
+            1 = 1
+               AND `id` = #{id}
+        </where>
+    </delete>
+
+    <update id="updateByPrimaryKey"
+            parameterType="demomaster.vo.TTitleVo">
+        UPDATE `t_title`
+        <set>
+               <if test="source.title != null">
+                   `title` = #{source.title}
+               </if>
+        </set>
+        <where>
+            1 =1
+               AND `id` = #{target.id}
+        </where>
+    </update>
+
+</mapper>

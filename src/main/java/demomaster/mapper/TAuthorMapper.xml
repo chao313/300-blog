@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="demomaster.dao.TAuthorDAO">
+
+    <resultMap id="resultMap" type="demomaster.vo.TAuthorVo">
+        <result column="id" property="id"/>
+        <result column="QQ" property="qq"/>
+        <result column="we_chat" property="weChat"/>
+    </resultMap>
+
+    <insert id="insert"
+            parameterType="demomaster.vo.TAuthorVo">
+        INSERT INTO `t_author`(
+        `id` ,
+        `QQ` ,
+        `we_chat` 
+        )VALUE(
+          #{id}  ,
+          #{qq}  ,
+          #{weChat}  
+        )
+    </insert>
+
+    <insert id="inserts"
+            parameterType="java.util.List">
+        INSERT INTO `t_author`(
+        `id`,
+        `QQ`,
+        `we_chat`
+        )VALUES
+        <foreach collection="vos" item="item" separator=",">
+            (
+            #{item.id},
+            #{item.qq},
+            #{item.weChat}
+            )
+        </foreach>
+    </insert>
+
+    <select id="queryBase" resultMap="resultMap"
+            resultType="demomaster.vo.TAuthorVo"
+            parameterType="demomaster.vo.TAuthorVo">
+        SELECT
+        `id`,
+        `QQ`,
+        `we_chat`
+        FROM `t_author`
+        <where>
+            1 = 1
+            <if test="id != null">
+                AND `id` = #{id}
+            </if>
+            <if test="qq != null">
+                AND `QQ` = #{qq}
+            </if>
+            <if test="weChat != null">
+                AND `we_chat` = #{weChat}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateBase"
+            parameterType="demomaster.vo.TAuthorVo">
+        UPDATE `t_author`
+        <set>
+            <if test="source.id != null">
+                `id` = #{source.id},
+            </if>
+            <if test="source.qq != null">
+                `QQ` = #{source.qq},
+            </if>
+            <if test="source.weChat != null">
+                `we_chat` = #{source.weChat}
+            </if>
+        </set>
+        <where>
+            1 =1
+            <if test="target.id != null">
+                AND `id` = #{target.id}
+            </if>
+            <if test="target.qq != null">
+                AND `QQ` = #{target.qq}
+            </if>
+            <if test="target.weChat != null">
+                AND `we_chat` = #{target.weChat}
+            </if>
+        </where>
+    </update>
+
+    <update id="updateBaseIncludeNull"
+            parameterType="demomaster.vo.TAuthorVo">
+        UPDATE `t_author`
+        <set>
+            `id` = #{source.id},
+            `QQ` = #{source.qq},
+            `we_chat` = #{source.weChat}
+        </set>
+        <where>
+            1 =1
+            <if test="target.id != null">
+                AND `id` = #{target.id}
+            </if>
+            <if test="target.qq != null">
+                AND `QQ` = #{target.qq}
+            </if>
+            <if test="target.weChat != null">
+                AND `we_chat` = #{target.weChat}
+            </if>
+        </where>
+    </update>
+
+    <delete id="deleteBase"
+            parameterType="demomaster.vo.TAuthorVo">
+        DELETE FROM `t_author`
+        <where>
+            1 =1
+            <if test="id != null">
+                AND `id` = #{id}
+            </if>
+            <if test="qq != null">
+                AND `QQ` = #{qq}
+            </if>
+            <if test="weChat != null">
+                AND `we_chat` = #{weChat}
+            </if>
+        </where>
+    </delete>
+
+
+    <select id="queryByPrimaryKey" resultMap="resultMap"
+            resultType="demomaster.vo.TAuthorVo">
+        SELECT
+        `id`,
+        `QQ`,
+        `we_chat`
+        FROM `t_author`
+        <where>
+            1 =1
+            AND `id` = #{id}
+        </where>
+    </select>
+
+    <delete id="deleteByPrimaryKey">
+        DELETE FROM `t_author`
+        <where>
+            1 = 1
+               AND `id` = #{id}
+        </where>
+    </delete>
+
+    <update id="updateByPrimaryKey"
+            parameterType="demomaster.vo.TAuthorVo">
+        UPDATE `t_author`
+        <set>
+               <if test="source.qq != null">
+                   `QQ` = #{source.qq},
+               </if>
+               <if test="source.weChat != null">
+                   `we_chat` = #{source.weChat}
+               </if>
+        </set>
+        <where>
+            1 =1
+               AND `id` = #{target.id}
+        </where>
+    </update>
+
+</mapper>
